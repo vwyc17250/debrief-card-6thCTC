@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>賽後準備卡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDF1E9;--surf:#FFFFFF;--ink:#1B3329;--muted:#5C6F64;--line:#D7E0D5;
+  --accent:#2F6B52;--accent-ink:#FFFFFF;--gold:#B8822A;--soft:#F4F7F1;--warn:#9A5B12;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1613;--surf:#18211D;--ink:#E5EEE8;--muted:#9BAEA4;--line:#27332E;
+  --accent:#63BE93;--accent-ink:#0B1712;--gold:#DFB160;--soft:#1E2823;--warn:#DFA35C;}}
+:root[data-theme="dark"]{--bg:#0F1613;--surf:#18211D;--ink:#E5EEE8;--muted:#9BAEA4;--line:#27332E;
+  --accent:#63BE93;--accent-ink:#0B1712;--gold:#DFB160;--soft:#1E2823;--warn:#DFA35C;}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);
+ font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-text-size-adjust:100%}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:660px;margin:0 auto;padding:20px 18px 60px}
+.bar{display:flex;gap:6px;margin-bottom:16px}
+.dot{height:5px;flex:1;border-radius:99px;background:var(--line)}
+.dot.on{background:var(--accent)}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:20px 18px;margin-bottom:14px}
+h1{font-size:26px;margin:0 0 6px;font-weight:700}
+h2{font-size:19px;margin:0 0 4px;font-weight:700}
+.sub{color:var(--muted);font-size:14.5px;margin:0 0 16px}
+.q{margin-bottom:22px}
+.ask{font-size:16.5px;font-weight:500;margin-bottom:3px}
+.hint{font-size:13.5px;color:var(--muted);margin-bottom:9px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surf);border-radius:999px;padding:8px 14px;font-size:14.5px;min-height:40px;display:inline-flex;align-items:center;gap:6px}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:500}
+.chip.full[aria-pressed="false"]{opacity:.45}
+.slots{display:grid;gap:8px}
+.slot{border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;background:var(--surf);text-align:left;display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;width:100%}
+.slot[aria-pressed="true"]{border-color:var(--accent);background:var(--soft)}
+.slot .t{grid-column:1;grid-row:1;text-align:left;font-size:15.5px;font-weight:500}
+.slot .time{grid-column:1;grid-row:2;text-align:left;font-size:12.5px;color:var(--muted)}
+.slot .who{grid-column:2;grid-row:1/3;text-align:right;font-size:12.5px;color:var(--gold);white-space:nowrap}
+.slot[disabled]{opacity:.55}
+textarea,input[type=text]{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surf);resize:vertical}
+textarea{min-height:76px}
+.kw{display:flex;gap:8px;align-items:stretch}
+.kw input{flex:1}
+.nav{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
+.btn{border:1.5px solid var(--line);background:var(--surf);border-radius:999px;padding:12px 20px;font-size:15.5px;font-weight:500}
+.btn.go{flex:1;background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.sm{padding:8px 15px;font-size:14px}
+.btn.ai{border-color:var(--gold);color:var(--gold)}
+.btn[disabled]{opacity:.5;cursor:default}
+.msg{font-size:14px;color:var(--warn);margin-top:8px;min-height:20px}
+.ok{color:var(--accent)}
+.factbox{border:1.5px solid var(--line);border-radius:12px;padding:13px;margin-bottom:12px;background:var(--surf)}
+.factbox textarea{min-height:122px}
+.factbox h3{font-size:16px;margin:0 0 2px}
+.factbox .time{font-size:12.5px;color:var(--muted);margin-bottom:9px}
+.seal{border:1.5px dashed var(--gold);border-radius:12px;padding:14px;background:var(--soft)}
+.seal b{color:var(--gold)}
+.done{text-align:center;padding:36px 18px}
+.done svg{width:58px;height:58px;margin-bottom:14px}
+.foot{text-align:center;font-size:13px;color:var(--muted);margin-top:16px}
+.foot button{background:none;border:none;color:var(--muted);text-decoration:underline;padding:4px}
+.lead h2{margin-top:24px}
+.stat{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.stat div{background:var(--soft);border-radius:10px;padding:9px 13px;min-width:86px}
+.stat b{display:block;font-size:22px;line-height:1.2}
+.stat span{font-size:12.5px;color:var(--muted)}
+.quotes{display:grid;gap:8px}
+.quotes div{background:var(--soft);border-radius:10px;padding:9px 12px;font-size:14.5px}
+.quotes .nm{color:var(--gold);font-size:12.5px;display:block}
+.rank{display:grid;gap:5px}
+.rank .r{display:grid;grid-template-columns:1fr auto;font-size:14.5px}
+.rank .track{grid-column:1/-1;height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.rank .fill{height:100%;background:var(--accent)}
+.outbox{width:100%;min-height:180px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);const app=$('#app');
+const DRAFT='debrief-lite-v1';
+const API_DRAFT='/api/draft', API_DATA='/api/data';
+let online=true, aiOn=true;
+const NAMES=['劉景生','歐陽栩樂','陳顥天','歐蕙昕','高嘉謙','歐陽栩晴','楊皓之','曾思恩','徐樂悠'];
+const SLOTS=[
+ {id:'s01',t:'出發及報到',time:'第一天 09:00–10:00'},
+ {id:'s02',t:'報到檢查',time:'第一天 10:00–11:00'},
+ {id:'s03',t:'原野烹飪',time:'第一天 11:30–14:30'},
+ {id:'s04',t:'營地建設',time:'第一天 14:30–17:30'},
+ {id:'s05',t:'煮晚餐及晚餐',time:'第一天 17:00–19:30'},
+ {id:'s06',t:'第一晚嘅比賽項目',time:'第一天 19:30–22:30'},
+ {id:'s07',t:'晚間收拾及晚間檢查',time:'第一天 22:30–01:30'},
+ {id:'s08',t:'早餐及晨早檢查',time:'第二天 07:00–09:00'},
+ {id:'s09',t:'野外挑戰',time:'第二天 09:00–12:30'},
+ {id:'s10',t:'午餐嗰 30 分鐘',time:'第二天 12:30–13:30'},
+ {id:'s11',t:'最後檢查及頒獎',time:'第二天 13:30–17:30'}
+];
+const ITEMS=['報到檢查','營地建設','晚間檢查','晨早檢查','最後檢查','第一天晚餐','第二天早餐','第二天午餐','原野烹飪','繩結及先鋒工程','急救','團隊機智','童軍常識','野外挑戰','露營計劃書','特別任務'];
+const CHAOS=SLOTS.map(s=>s.t);
+
+let step=0,msg='',busy=false,sent=false;
+let A={name:'',claims:[],facts:{},better:[],worse:[],chaos:[],moment:'',idea:'',kw:{}};
+let anon={blocked:'',support:''},anonSent=false;
+let slotDocs={};
+try{const d=localStorage.getItem(DRAFT);if(d)A=Object.assign(A,JSON.parse(d));}catch(e){}
+const saveDraft=()=>{try{localStorage.setItem(DRAFT,JSON.stringify(A));}catch(e){}};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const has=(a,v)=>a.indexOf(v)>=0;
+const slotById=id=>SLOTS.find(s=>s.id===id);
+
+/* ---------- views ---------- */
+function chips(key,opts,max){
+  const arr=A[key],full=max&&arr.length>=max;
+  return `<div class="chips" data-chips="${key}" data-max="${max||0}">`+opts.map(o=>
+    `<button type="button" class="chip${full?' full':''}" data-v="${esc(o)}" aria-pressed="${has(arr,o)}">${esc(o)}</button>`).join('')+'</div>';
+}
+function dots(n){let h='<div class="bar">';for(let i=1;i<=4;i++)h+=`<div class="dot${i<=n?' on':''}"></div>`;return h+'</div>';}
+
+function v0(){
+  return `<div class="card"><h1>賽後準備卡</h1>
+  <p class="sub">今晚 debriefing 之前填，大約 6 分鐘。填咗之後，到你講嗰陣就有嘢喺手，唔使即場諗。</p>
+  <div class="q"><div class="ask">你係邊位？</div>
+  <div class="hint">頭三部分係具名嘅，因為會上你要講返出嚟。最後一部分先係匿名。</div>
+  <div class="chips" data-name>${NAMES.map(n=>`<button type="button" class="chip" data-v="${esc(n)}" aria-pressed="${A.name===n}">${esc(n)}</button>`).join('')}</div></div>
+  <div class="nav"><button class="btn go" data-go="1" ${A.name?'':'disabled'}>開始</button></div>
+  </div>`;
+}
+function v1(){
+  return dots(1)+`<div class="card"><h2>一　認領時段</h2>
+  <p class="sub">揀一至兩個時段。會上你負責講返嗰段發生過咩事——只講事實，唔使評論。已經有人認領嘅時段會顯示佢個名。</p>
+  <div class="slots">${SLOTS.map(s=>{
+    const d=slotDocs[s.id],taken=d&&d.by&&d.by!==A.name,mine=has(A.claims,s.id);
+    return `<button type="button" class="slot" data-slot="${s.id}" aria-pressed="${mine}" ${taken?'disabled':''}>
+      <span class="t">${esc(s.t)}</span><span class="who">${taken?esc(d.by):(mine?'你':'')}</span><span class="time">${esc(s.time)}</span></button>`;}).join('')}</div>
+  <div class="msg">${esc(msg)}</div>
+  <div class="nav"><button class="btn" data-go="0">返回</button><button class="btn go" data-go="2" ${A.claims.length?'':'disabled'}>下一步</button></div></div>`;
+}
+function v2(){
+  if(!A.claims.length)return v1();
+  let h=dots(2)+`<div class="card"><h2>二　寫低發生過咩事</h2>
+  <p class="sub">打幾個關鍵詞，撳「幫我寫成段」就會整理成完整描述，之後你改到啱為止。寫唔到都可以自己打。</p>`;
+  for(const id of A.claims){
+    const s=slotById(id);
+    h+=`<div class="factbox"><h3>${esc(s.t)}</h3><div class="time">${esc(s.time)}</div>
+      <div class="kw"><input type="text" data-kw="${id}" placeholder="例如：落雨、天幕漏水、改咗位、遲咗 20 分鐘" value="${esc(A.kw[id]||'')}">
+      <button class="btn sm ai" data-ai="${id}" ${aiOn&&!busy?'':'disabled'}>${busy?'寫緊…':'幫我寫成段'}</button></div>
+      <textarea data-fact="${id}" placeholder="喺呢度寫低當時發生過咩事" style="margin-top:9px">${esc(A.facts[id]||'')}</textarea></div>`;
+  }
+  h+=`<div class="msg">${esc(msg)}</div><div class="nav"><button class="btn" data-go="1">返回</button><button class="btn go" data-act="saveFacts" ${busy?'disabled':''}>${busy?'寫緊…':'儲存並繼續'}</button></div></div>`;
+  return h;
+}
+function v3(){
+  return dots(3)+`<div class="card"><h2>三　五格卡</h2><p class="sub">撳一撳就得，最後兩格寫一句。</p>
+  <div class="q"><div class="ask">邊啲項目好過你賽前預期？</div><div class="hint">可揀多項</div>${chips('better',ITEMS)}</div>
+  <div class="q"><div class="ask">邊啲項目差過你賽前預期？</div><div class="hint">可揀多項</div>${chips('worse',ITEMS)}</div>
+  <div class="q"><div class="ask">邊個時段最混亂？</div><div class="hint">可揀多項</div>${chips('chaos',CHAOS)}</div>
+  <div class="q"><div class="ask">最深刻嘅一刻</div><div class="hint">一句就夠</div><textarea data-f="moment" placeholder="例如：落雨嗰陣…">${esc(A.moment)}</textarea></div>
+  <div class="q"><div class="ask">下次我哋可以…</div><div class="hint">寫做法，唔好寫人。寫完可以撳「執順啲」。</div>
+    <textarea data-f="idea" placeholder="例如：紮營前先用五分鐘分好崗位">${esc(A.idea)}</textarea>
+    <div class="nav"><button class="btn sm ai" data-polish="idea" ${aiOn&&A.idea.trim()&&!busy?'':'disabled'}>${busy?'執緊…':'執順啲'}</button></div></div>
+  <div class="msg">${esc(msg)}</div>
+  <div class="nav"><button class="btn" data-go="2">返回</button><button class="btn go" data-act="saveCard" ${busy?'disabled':''}>${busy?'交緊…':'交卡'}</button></div></div>`;
+}
+function v4(){
+  return dots(4)+`<div class="card"><h2>四　匿名嗰兩條</h2>
+  <div class="seal"><b>呢部分同上面完全分開交。</b>唔會記錄你係邊個，亦唔會同你上面嘅答案連埋。只有領袖會睇，會上唔會讀原句。<br><br>
+  唯一例外：如果有人講到安全問題或者受到傷害，領袖一定會跟進。</div>
+  <div class="q" style="margin-top:18px"><div class="ask">有冇嘢你喺會上講唔出口？</div>
+    <textarea data-a="blocked" placeholder="可以留白">${esc(anon.blocked)}</textarea></div>
+  <div class="q"><div class="ask">點樣先會令你更容易講出嚟？</div>
+    <textarea data-a="support" placeholder="例如：細組講會容易啲／想有人問我先講到">${esc(anon.support)}</textarea></div>
+  <div class="msg">${esc(msg)}</div>
+  <div class="nav"><button class="btn" data-act="skipAnon">跳過</button><button class="btn go" data-act="saveAnon" ${busy?'disabled':''}>交出去</button></div></div>`;
+}
+function vDone(){
+  return `<div class="card done"><svg viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="27" fill="none" stroke="var(--accent)" stroke-width="2.5"/><path d="M18 30l8 8 15-18" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <h1>搞掂</h1><p class="sub">今晚記得帶住你認領嗰一兩段嘅內容嚟講。</p>
+  <div class="nav"><button class="btn" data-act="again">再睇一次我嘅答案</button></div>
+  </div>`;
+}
+
+function render(keep){const y=keep?window.scrollY:0;
+  let h;
+  if(sent)h=vDone();
+  else h=[v0,v1,v2,v3,v4][step]();
+  app.innerHTML=h;window.scrollTo({top:y});}
+
+/* ---------- AI drafting ---------- */
+async function askAI(prompt){
+  const r=await fetch(API_DRAFT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:prompt})});
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok||!d.text)throw new Error(d.message||'AI 暫時用唔到');
+  return d.text;
+}
+async function draftFact(id){
+  const s=slotById(id),kw=(A.kw[id]||'').trim();
+  if(!kw){msg='先打低幾個關鍵詞，例如「落雨、天幕漏水、遲咗」。';return render(true);}
+  busy=true;msg='';render(true);
+  const box=()=>app.querySelector(`[data-fact="${id}"]`);
+  const prompt=`你幫一位香港童軍隊員整理佢喺童軍比賽入面一個時段嘅事實描述。
+
+時段：${s.t}（${s.time}）
+佢提供嘅關鍵詞：${kw}
+
+請用香港書面廣東話寫 3 至 4 句，合共唔多於 120 字，只描述發生咗咩事同當時嘅情況。
+規則：
+- 只寫事實，唔好評論做得好唔好，唔好加責備或者讚賞
+- 唔好提任何人名，用「小隊」「有隊員」代替
+- 唔好加開場白、標題或者引號
+- 如果關鍵詞資料唔夠，就只寫關鍵詞覆蓋到嘅部分，唔好自己作新嘅細節
+只輸出描述本身。`;
+  try{
+    const t=await askAI(prompt);
+    A.facts[id]=t.trim();saveDraft();
+    const b=box();if(b)b.value=A.facts[id];
+  }catch(err){msg=(err&&err.message)||'寫唔到，請自己打或者再試一次。';}
+  busy=false;render(true);
+}
+async function polish(field){
+  if(!A[field].trim())return;
+  busy=true;msg='';render(true);
+  const prompt=`將以下童軍隊員寫嘅改善建議執順啲，用香港書面廣東話，一句，唔多於 40 字。
+規則：必須以「下次我哋可以」開頭；只講做法，唔好講人名；唔好加新內容；只輸出嗰一句。
+
+原文：${A[field]}`;
+  try{const t=await askAI(prompt);A[field]=t.trim();saveDraft();}
+  catch(err){msg='執唔到，用返你原本嗰句都得。';}
+  busy=false;render(true);
+}
+
+/* ---------- events ---------- */
+app.addEventListener('click',async e=>{
+  const nm=e.target.closest('[data-name] .chip');
+  if(nm){A.name=nm.dataset.v;saveDraft();return render(true);}
+  const sl=e.target.closest('[data-slot]');
+  if(sl&&!sl.disabled){
+    const id=sl.dataset.slot;
+    if(has(A.claims,id))A.claims=A.claims.filter(x=>x!==id);
+    else if(A.claims.length>=2){msg='最多認領兩個時段，請先取消一個。';return render(true);}
+    else A.claims.push(id);
+    msg='';saveDraft();return render(true);
+  }
+  const c=e.target.closest('[data-chips] .chip');
+  if(c){const b=c.closest('[data-chips]'),k=b.dataset.chips,max=+b.dataset.max||0,v=c.dataset.v;
+    if(has(A[k],v))A[k]=A[k].filter(x=>x!==v);
+    else{if(max&&A[k].length>=max)return;A[k].push(v);}
+    saveDraft();return render(true);}
+  const go=e.target.closest('[data-go]');
+  if(go&&!go.disabled){step=+go.dataset.go;msg='';return render();}
+  const ai=e.target.closest('[data-ai]');
+  if(ai&&!ai.disabled)return draftFact(ai.dataset.ai);
+  const po=e.target.closest('[data-polish]');
+  if(po&&!po.disabled)return polish(po.dataset.polish);
+  const act=e.target.closest('[data-act]');if(!act)return;
+  const a=act.dataset.act;
+  if(a==='saveFacts'){
+    busy=true;render(true);
+    const items=A.claims.map(id=>({id:id,title:slotById(id).t,text:(A.facts[id]||'').trim()}));
+    try{await post({action:'slots',name:A.name,items:items});
+      items.forEach(it=>{slotDocs[it.id]={by:A.name,text:it.text};});
+      busy=false;step=3;msg='';}
+    catch(err){busy=false;msg='儲存唔到，請再試一次，或者截圖交俾領袖。';}
+    return render();
+  }
+  if(a==='saveCard'){
+    busy=true;render(true);
+    try{await post({action:'card',name:A.name,better:A.better,worse:A.worse,chaos:A.chaos,moment:A.moment,idea:A.idea});
+      busy=false;step=4;msg='';}
+    catch(err){busy=false;msg='交唔到，請再試一次。';}
+    return render();
+  }
+  if(a==='saveAnon'){
+    if(!anon.blocked.trim()&&!anon.support.trim()){sent=true;return render();}
+    busy=true;render(true);
+    try{await post({action:'anon',blocked:anon.blocked,support:anon.support});anonSent=true;busy=false;sent=true;}
+    catch(err){busy=false;msg='交唔到，請再試一次。';}
+    return render();
+  }
+  if(a==='skipAnon'){sent=true;return render();}
+  if(a==='again'){sent=false;step=0;return render();}
+});
+app.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.dataset.kw!==undefined){A.kw[t.dataset.kw]=t.value;saveDraft();return;}
+  if(t.dataset.fact!==undefined){A.facts[t.dataset.fact]=t.value;saveDraft();return;}
+  if(t.dataset.f){A[t.dataset.f]=t.value;saveDraft();return;}
+  if(t.dataset.a){anon[t.dataset.a]=t.value;return;}
+});
+
+/* ---------- data ---------- */
+async function post(payload){
+  const r=await fetch(API_DATA,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok||d.error)throw new Error(d.message||'儲存失敗');
+  return d;
+}
+async function loadSlots(){
+  try{const r=await fetch(API_DATA);const d=await r.json();if(d&&d.slots)slotDocs=d.slots;online=true;}
+  catch(e){online=false;}
+}
+render();
+(async function(){ await loadSlots(); render(true); })();
+})();
+</script>
+</body>
+</html>
